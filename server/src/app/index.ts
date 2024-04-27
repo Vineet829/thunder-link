@@ -4,7 +4,7 @@ import cors from "cors";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { prismaClient } from "../clients/db";
-
+import path from "path"
 import { User } from "./user";
 import { Post } from "./post";
 import { GraphqlContext } from "../intefaces";
@@ -20,6 +20,18 @@ export async function initServer() {
     res.status(200).json({ message: "Everything is good" })
   );
 
+
+
+  // Serve the Next.js static files
+  const nextJsOutDir = path.join(__dirname, '../out'); // Adjust the path to where your 'out' directory is located
+  app.use(express.static(nextJsOutDir));
+
+  app.get("/", (req, res) => {
+    // Serve the index.html file from the Next.js 'out' directory for the root path
+    res.sendFile(path.join(nextJsOutDir, 'index.html'));
+  });
+
+  
   const graphqlServer = new ApolloServer<GraphqlContext>({
     typeDefs: `
        ${User.types}
