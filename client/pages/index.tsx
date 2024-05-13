@@ -5,7 +5,7 @@ import FeedCard from "@/components/FeedCard";
 import { useCurrentUser } from "@/hooks/user";
 import { useCreatePost, useGetAllPosts } from "@/hooks/post";
 import { Post } from "@/gql/graphql";
-import Postlayout from "@/components/FeedCard/Layout/TwitterLayout";
+import Postlayout from "../components/FeedCard/Layout/TwitterLayout";
 import { GetServerSideProps } from "next";
 import { graphqlClient } from "@/clients/api";
 import { BsSend } from "react-icons/bs";

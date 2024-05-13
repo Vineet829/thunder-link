@@ -18,6 +18,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 const server_1 = require("@apollo/server");
 const express4_1 = require("@apollo/server/express4");
+const path_1 = __importDefault(require("path"));
 const user_1 = require("./user");
 const post_1 = require("./post");
 const jwt_1 = __importDefault(require("../services/jwt"));
@@ -27,6 +28,13 @@ function initServer() {
         app.use(body_parser_1.default.json());
         app.use((0, cors_1.default)());
         app.get("/", (req, res) => res.status(200).json({ message: "Everything is good" }));
+        // Serve the Next.js static files
+        const nextJsOutDir = path_1.default.join(__dirname, '../out'); // Adjust the path to where your 'out' directory is located
+        app.use(express_1.default.static(nextJsOutDir));
+        app.get("/", (req, res) => {
+            // Serve the index.html file from the Next.js 'out' directory for the root path
+            res.sendFile(path_1.default.join(nextJsOutDir, 'index.html'));
+        });
         const graphqlServer = new server_1.ApolloServer({
             typeDefs: `
        ${user_1.User.types}

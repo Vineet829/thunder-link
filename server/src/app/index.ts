@@ -22,16 +22,7 @@ export async function initServer() {
 
 
 
-  // Serve the Next.js static files
-  const nextJsOutDir = path.join(__dirname, '../out'); // Adjust the path to where your 'out' directory is located
-  app.use(express.static(nextJsOutDir));
 
-  app.get("/", (req, res) => {
-    // Serve the index.html file from the Next.js 'out' directory for the root path
-    res.sendFile(path.join(nextJsOutDir, 'index.html'));
-  });
-
-  
   const graphqlServer = new ApolloServer<GraphqlContext>({
     typeDefs: `
        ${User.types}

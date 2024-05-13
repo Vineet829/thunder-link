@@ -98,20 +98,18 @@ const Postlayout: React.FC<PostlayoutProps> = (props) => {
   
 
   
-  
-  
   return (
     <div>
-      <div className="grid grid-cols-12 h-screen sm:px-56">
-        <div className="mr-20 col-span-2 sm:col-span-3 pt-1 flex sm:justify-end pr-4 " >
+      <div className="grid grid-cols-12 h-screen sm:grid-cols">
+        <div className="mr-20 col-span-2 sm:col-span-3 pt-1 flex sm:justify-end pr-4  " >
           <div className="marginbox">
-            <div className="thunder ml-12">
+            <div className="thunder">
             
   
-            <AiFillThunderbolt className="w-16 h-16" 
+            <AiFillThunderbolt className="w-16 h-16 " 
     style={{
       color: '#FFE62D',
-      fontSize: "3rem",
+      fontSize: "6rem",
       
       
     }}
@@ -175,7 +173,7 @@ const Postlayout: React.FC<PostlayoutProps> = (props) => {
           
           {!user ? (
             <div style={{minWidth: "300px"}} className="p-5 bg-slate-700 rounded-lg">
-              <h1 className="my-2 text-2xl">New to Thunder Link?</h1>
+              <h1 className="my-2 text-2xl">New to Twitter?</h1>
               <GoogleLogin onSuccess={handleLoginWithGoogle} />
             </div>
           ) : (

@@ -39,8 +39,8 @@ class PostService {
                     post: { connect: { id: data.postId } },
                 },
             });
-            // await redisClient.setex(`RATE_LIMIT:COMMENT:${data.userId}`, 10, "1");
-            // await redisClient.del(`COMMENTS_FOR_POST:${data.postId}`);
+            yield redis_1.redisClient.setex(`RATE_LIMIT:COMMENT:${data.userId}`, 10, "1");
+            yield redis_1.redisClient.del(`COMMENTS_FOR_POST:${data.postId}`);
             return comment;
         });
     }

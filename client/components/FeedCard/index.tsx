@@ -57,7 +57,7 @@ const FeedCard: React.FC<FeedCardProps> = (props) => {
         console.log('Error occured when fetching books');
       }
     })();
-  }, [commentLine]);        
+  }, [1]);        
   
   
   

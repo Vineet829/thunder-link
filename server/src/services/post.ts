@@ -48,10 +48,10 @@ class PostService {
     });
   
     
-    // await redisClient.setex(`RATE_LIMIT:COMMENT:${data.userId}`, 10, "1");
+    await redisClient.setex(`RATE_LIMIT:COMMENT:${data.userId}`, 10, "1");
   
     
-    // await redisClient.del(`COMMENTS_FOR_POST:${data.postId}`);
+    await redisClient.del(`COMMENTS_FOR_POST:${data.postId}`);
   
     return comment;
   }
