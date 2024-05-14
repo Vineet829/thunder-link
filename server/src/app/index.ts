@@ -3,12 +3,15 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
+import fs from 'fs';
+import https from 'https';
+import path from "path";
 import { prismaClient } from "../clients/db";
-import path from "path"
 import { User } from "./user";
 import { Post } from "./post";
 import { GraphqlContext } from "../intefaces";
 import JWTService from "../services/jwt";
+
 
 export async function initServer() {
   const app = express();
@@ -69,5 +72,23 @@ export async function initServer() {
     })
   );
 
+  const sslOptions = {
+    key: fs.readFileSync('/home/vineet/thunder-link-server/server/src/private.key'),
+    cert: fs.readFileSync('/home/vineet/thunder-link-server/server/src/certificate.crt'),
+    ca: fs.readFileSync('/home/vineet/thunder-link-server/server/src/ca_bundle.crt') // Optional: Including CA bundle if provided
+};
+
+  // Create HTTPS server
+  const httpsServer = https.createServer(sslOptions, app);
+
+  // Specify HTTPS port
+  const PORT = 3000; // Default port for HTTPS is 443
+
+  // Start HTTPS server
+  httpsServer.listen(PORT, () => {
+    console.log(`HTTPS Server is running on https://localhost:${PORT}`);
+  });
+
   return app;
 }
+

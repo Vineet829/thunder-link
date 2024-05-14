@@ -38,7 +38,6 @@ dotenv.config();
 function init() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = yield (0, app_1.initServer)();
-        app.listen(8000, () => console.log(`Server Started at PORT:8000`));
     });
 }
 init();
