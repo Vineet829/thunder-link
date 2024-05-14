@@ -173,7 +173,7 @@ const Postlayout: React.FC<PostlayoutProps> = (props) => {
           
           {!user ? (
             <div style={{minWidth: "300px"}} className="p-5 bg-slate-700 rounded-lg">
-              <h1 className="my-2 text-2xl">New to Twitter?</h1>
+              <h1 className="my-2 text-2xl">New to ThunderLink?</h1>
               <GoogleLogin onSuccess={handleLoginWithGoogle} />
             </div>
           ) : (
