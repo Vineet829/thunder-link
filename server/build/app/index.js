@@ -18,8 +18,6 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 const server_1 = require("@apollo/server");
 const express4_1 = require("@apollo/server/express4");
-const fs_1 = __importDefault(require("fs"));
-const https_1 = __importDefault(require("https"));
 const user_1 = require("./user");
 const post_1 = require("./post");
 const jwt_1 = __importDefault(require("../services/jwt"));
@@ -56,18 +54,10 @@ function initServer() {
                 };
             }),
         }));
-        const sslOptions = {
-            key: fs_1.default.readFileSync('/home/vineet/thunder-link-server/server/src/private.key'),
-            cert: fs_1.default.readFileSync('/home/vineet/thunder-link-server/server/src/certificate.crt'),
-            ca: fs_1.default.readFileSync('/home/vineet/thunder-link-server/server/src/ca_bundle.crt') // Optional: Including CA bundle if provided
-        };
-        // Create HTTPS server
-        const httpsServer = https_1.default.createServer(sslOptions, app);
-        // Specify HTTPS port
-        const PORT = 3000; // Default port for HTTPS is 443
-        // Start HTTPS server
-        httpsServer.listen(PORT, () => {
-            console.log(`HTTPS Server is running on https://localhost:${PORT}`);
+        const PORT = 8000; // Commonly used port for HTTP is 80, but you can use any available port
+        // Start HTTP server
+        app.listen(PORT, () => {
+            console.log(`HTTP Server is running on http://localhost:${PORT}`);
         });
         return app;
     });

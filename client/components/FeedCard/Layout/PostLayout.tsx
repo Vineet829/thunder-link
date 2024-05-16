@@ -45,7 +45,7 @@ const Postlayout: React.FC<PostlayoutProps> = (props) => {
       {
         title: "Profile",
         icon: <FaUserAstronaut />,
-        link: `/${user?.id}`,
+        link: user? `/${user?.id}`: '/',
       },
     
     ],
@@ -117,7 +117,7 @@ const Postlayout: React.FC<PostlayoutProps> = (props) => {
 
     
             </div>
-            <div className="mt-20 text-xl pr-4">
+            <div className="mt-20 text-xl">
               <ul>
                 {sidebarMenuItems.map((item) => (
                   <li key={item.title}>
@@ -134,15 +134,13 @@ const Postlayout: React.FC<PostlayoutProps> = (props) => {
               </ul>
               <div className="mt-5 px-3">
                
-                <button className="block sm:hidden bg-[#1d9bf0] font-semibold text-lg py-2 px-4 rounded-full w-full">
-                
-                </button>
+               
               </div>
             </div>
           </div>
           {user && (
-            <div  style={{marginRight: "44px"}}
-            className=" head absolute bottom-5 flex gap-2 items-center bg-slate-800 px-3 py-2 rounded-full">
+            <div  style={{marginRight: "56px"}}
+            className="ic head absolute bottom-5 flex gap-2 items-center bg-slate-800 px-3 py-2 rounded-full sm:mb-24">
               {user && user.profileImageURL && (
                 <Image
               
@@ -161,7 +159,7 @@ const Postlayout: React.FC<PostlayoutProps> = (props) => {
             </div>
           )}
         </div>
-        <div style={{minWidth: "45rem"}} className="style-3 col-span-10 sm:col-span-5 h-screen border-gray-600">
+        <div style={{minWidth: "45rem"}} className="mp style-3 col-span-10 sm:col-span-5 h-screen border-gray-600">
           {props.children}
         </div>
         
@@ -170,7 +168,6 @@ const Postlayout: React.FC<PostlayoutProps> = (props) => {
                     
       
       }} className="sm:col-span-3 p-5">
-          
           {!user ? (
             <div style={{minWidth: "300px"}} className="p-5 bg-slate-700 rounded-lg">
               <h1 className="my-2 text-2xl">New to ThunderLink?</h1>
@@ -213,7 +210,7 @@ const Postlayout: React.FC<PostlayoutProps> = (props) => {
 </div>
        <div><SearchForm/></div>
        <div className="">
-       <button className="button-55 row-span-6 mt-20" onClick={logout}>
+       <button className="button-55 row-span-6 mt-10" onClick={logout}>
 
         Logout
        </button>

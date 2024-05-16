@@ -315,3 +315,16 @@ color: red;
 .suggestionItem:hover {
   background-color: #444;
 }
+
+
+@media (max-width: 768px) {
+  .ic {
+    margin-bottom: 10rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mp {
+    min-height: 95rem;
+  }
+}

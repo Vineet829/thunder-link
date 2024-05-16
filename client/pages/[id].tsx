@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import Twitterlayout from "@/components/FeedCard/Layout/TwitterLayout";
+
 import Image from "next/image";
 import type { GetServerSideProps, NextPage } from "next";
 import { BsArrowLeftShort } from "react-icons/bs";
@@ -17,6 +17,7 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { getPostByIdQuery } from "@/graphql/query/post";
 import Link from "next/link";
+import Postlayout from "../components/FeedCard/Layout/PostLayout";
 interface ServerProps {
   userInfo?: User;  
 }
@@ -69,7 +70,7 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
   console.log(props.userInfo?.posts)
   return (
     <div>
-      <Twitterlayout>
+      <Postlayout>
         <div>
           <nav className="flex items-center gap-3 py-3 px-3">
            <Link href='/'> <BsArrowLeftShort className="text-4xl" /></Link>
@@ -128,7 +129,7 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
             ))}
           </div>
         </div>
-      </Twitterlayout>
+      </Postlayout>
     </div>
   );
 };
