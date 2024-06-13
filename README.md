@@ -1,9 +1,9 @@
 
 # Thunder Link
 
-This repository contains a social media application built with Next.js for the frontend and GraphQL API for the backend. The backend utilizes Prisma, a database toolkit, to interact with the database, and AWS S3 for image storage. The app includes user authentication, post creation, comments, likes, and follow functionalities.
+This repository contains a social media app with features including user authentication, post creation, comments, likes, and a follow system.
 
-## Features
+# Features
 
 - **User Authentication**: Users can register, log in, and authenticate via Google OAuth.
 - **Posts**: Users can create, read, and delete posts. Posts can include text and images.
