@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import Twitterlayout from "@/components/FeedCard/Layout/TwitterLayout";
+import Twitterlayout from "@/components/FeedCard/Layout/PostLayout";
 import Image from "next/image";
 import type { GetServerSideProps, NextPage } from "next";
 import { BsArrowLeftShort } from "react-icons/bs";
