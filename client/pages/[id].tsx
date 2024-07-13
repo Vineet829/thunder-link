@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-
+import Twitterlayout from "@/components/FeedCard/Layout/TwitterLayout";
 import Image from "next/image";
 import type { GetServerSideProps, NextPage } from "next";
 import { BsArrowLeftShort } from "react-icons/bs";
@@ -15,9 +15,8 @@ import {
   unfollowUserMutation, 
 } from "@/graphql/mutation/user";
 import { useQueryClient } from "@tanstack/react-query";
-import { getPostByIdQuery } from "@/graphql/query/post";
 import Link from "next/link";
-import Postlayout from "../components/FeedCard/Layout/PostLayout";
+
 interface ServerProps {
   userInfo?: User;  
 }
@@ -52,69 +51,54 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
     await queryClient.invalidateQueries(["curent-user"]);
   }, [props.userInfo?.id, queryClient]);
 
-  const handleLikePost = useCallback(async () => {
-    if (!props.userInfo?.id) return;
-
-    await graphqlClient.request(followUserMutation, { to: props.userInfo?.id });
-    await queryClient.invalidateQueries(["curent-user"]);
-  }, [props.userInfo?.id, queryClient]);
-  
-  const handleUnlike = useCallback(async () => {
-    if (!props.userInfo?.id) return;
-
-    await graphqlClient.request(followUserMutation, { to: props.userInfo?.id });
-    await queryClient.invalidateQueries(["curent-user"]);
-  }, [props.userInfo?.id, queryClient]);
-  
-  
-  console.log(props.userInfo?.posts)
   return (
-    <div>
-      <Postlayout>
-        <div>
-          <nav className="flex items-center gap-3 py-3 px-3">
-           <Link href='/'> <BsArrowLeftShort className="text-4xl" /></Link>
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-4">
+      <Twitterlayout>
+        <div className="max-w-2xl mx-auto">
+          <nav className="flex items-center gap-3 py-3 px-3 mb-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+            <Link href="/">
+              <BsArrowLeftShort className="text-4xl cursor-pointer text-gray-700 dark:text-gray-300" />
+            </Link>
             <div>
-              <h1 className="text-2xl font-bold">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {props.userInfo?.firstName} {props.userInfo?.lastName}
               </h1>
-              <h1 className="text-md font-bold text-slate-500">
+              <h2 className="text-md font-bold text-gray-500 dark:text-gray-400">
                 {props.userInfo?.posts?.length} Posts
-              </h1>
+              </h2>
             </div>
           </nav>
-          <div className="p-4 border-b border-slate-800">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-4">
             {props.userInfo?.profileImageURL && (
               <Image
                 src={props.userInfo?.profileImageURL}
                 alt="user-image"
-                className="rounded-full"
+                className="rounded-full mx-auto"
                 width={100}
                 height={100}
               />
             )}
-            <h1 className="text-2xl font-bold mt-5">
+            <h1 className="text-2xl font-bold text-center mt-5 text-gray-900 dark:text-gray-100">
               {props.userInfo?.firstName} {props.userInfo?.lastName}
             </h1>
-            <div className="flex justify-between items-center">
-              <div className="flex gap-4 mt-2 text-sm text-gray-400">
+            <div className="flex justify-between items-center mt-4">
+              <div className="flex gap-4 text-sm text-gray-500 dark:text-gray-400">
                 <span>{props.userInfo?.followers?.length} followers</span>
                 <span>{props.userInfo?.following?.length} following</span>
               </div>
-              <div></div>
               {currentUser?.id !== props.userInfo?.id && (
                 <>
                   {amIFollowing ? (
                     <button
                       onClick={handleUnfollowUser}
-                      className="bg-white text-black px-3 py-1 rounded-full text-sm"
+                      className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-1 rounded-full text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition"
                     >
                       Unfollow
                     </button>
                   ) : (
                     <button
                       onClick={handleFollowUser}
-                      className="bg-white text-black px-3 py-1 rounded-full text-sm"
+                      className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm hover:bg-blue-600 transition"
                     >
                       Follow
                     </button>
@@ -123,13 +107,13 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
               )}
             </div>
           </div>
-          <div>
+          <div className="space-y-4">
             {props.userInfo?.posts?.map((post) => (
               <FeedCard data={post as Post} key={post?.id} />
             ))}
           </div>
         </div>
-      </Postlayout>
+      </Twitterlayout>
     </div>
   );
 };
@@ -141,7 +125,6 @@ export const getServerSideProps: GetServerSideProps<ServerProps> = async (
 
   if (!id) return { notFound: true, props: { userInfo: undefined } };
 
-  
   const userInfo = await graphqlClient.request(getUserByIdQuery, { id });
 
   if (!userInfo?.getUserById) return { notFound: true };
