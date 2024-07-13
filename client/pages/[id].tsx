@@ -53,7 +53,7 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-4">
-      <Twitterlayout>
+      <Postlayout>
         <div className="max-w-2xl mx-auto">
           <nav className="flex items-center gap-3 py-3 px-3 mb-4 bg-white dark:bg-gray-800 rounded-lg shadow">
             <Link href="/">
@@ -113,7 +113,7 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
             ))}
           </div>
         </div>
-      </Twitterlayout>
+      </Postlayout>
     </div>
   );
 };
