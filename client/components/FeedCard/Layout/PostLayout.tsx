@@ -150,7 +150,7 @@ const Postlayout: React.FC<PostlayoutProps> = ({ children }) => {
         </div>
         <div className="w-full mt-8">
           <button
-            className="w-32 bg-red-500 font-semibold text-base py-1 rounded-full px-4 ml-42"
+            className="w-32 bg-red-500 font-semibold text-base py-1 rounded-full px-4 ml-40"
             onClick={logout}
           >
             Logout
