@@ -118,7 +118,7 @@ const Postlayout: React.FC<PostlayoutProps> = ({ children }) => {
       </div>
       <div className="col-span-3 p-4 flex flex-col">
         <div className="w-full p-4 bg-gray-800 rounded-lg mb-8">
-          <h1 className="mb-4 text-2xl">{!user ? "New to Twitter?" : "Users you may know"}</h1>
+          <h1 className="mb-4 text-2xl">{!user ? "New to ThunderLink?" : "Users you may know"}</h1>
           {!user ? (
             <GoogleLogin onSuccess={handleLoginWithGoogle} />
           ) : (
@@ -150,7 +150,7 @@ const Postlayout: React.FC<PostlayoutProps> = ({ children }) => {
         </div>
         <div className="w-full mt-8">
           <button
-            className="w-32 bg-red-500 font-semibold text-base py-1 rounded-full px-4 ml-44"
+            className="w-32 bg-red-500 font-semibold text-base py-1 rounded-full px-4 ml-42"
             onClick={logout}
           >
             Logout
