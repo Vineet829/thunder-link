@@ -75,16 +75,16 @@ export async function initServer() {
   const sslOptions = {
     key: fs.readFileSync('/home/vineet/thunder-link-server/server/src/private.key'),
     cert: fs.readFileSync('/home/vineet/thunder-link-server/server/src/certificate.crt'),
-    ca: fs.readFileSync('/home/vineet/thunder-link-server/server/src/ca_bundle.crt') // Optional: Including CA bundle if provided
+    ca: fs.readFileSync('/home/vineet/thunder-link-server/server/src/ca_bundle.crt') 
 };
 
-  // Create HTTPS server
+  
   const httpsServer = https.createServer(sslOptions, app);
 
-  // Specify HTTPS port
-  const PORT = 3000; // Default port for HTTPS is 443
 
-  // Start HTTPS server
+  const PORT = 3000; 
+
+  
   httpsServer.listen(PORT, () => {
     console.log(`HTTPS Server is running on https://localhost:${PORT}`);
   });
