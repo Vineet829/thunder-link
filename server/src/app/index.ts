@@ -6,7 +6,7 @@ import { expressMiddleware } from "@apollo/server/express4";
 import { prismaClient } from "../clients/db";
 import { User } from "./user";
 import { Post } from "./post";
-import { GraphqlContext } from "../interfaces";
+import { GraphqlContext } from "../intefaces";
 import JWTService from "../services/jwt";
 
 export async function initServer() {
