@@ -30,7 +30,7 @@ export async function initServer() {
       }
 
       type Mutation {
-        ${Post.mutations}
+        ${Post.muatations}
         ${User.mutations}
       }
     `,
