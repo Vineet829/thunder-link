@@ -3,4 +3,5 @@ import { queries } from "./queries";
 import { muatations } from "./muatations";
 import { resolvers } from "./resolvers";
 
+
 export const Post = { types, muatations, resolvers, queries };
