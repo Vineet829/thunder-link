@@ -3,13 +3,13 @@ import React, {useState} from 'react';
 import { graphqlClient } from "@/clients/api";
 import { useCurrentUser } from "@/hooks/user";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-// Define the shape of each comment object
+
 import { useDeleteComment } from '@/hooks/post';
 import Image from "next/image";
 const Comment = ({ commentLine, postId}:any) => {
   const [viewMore, setViewMore] = useState(false);
 
-  // Function to toggle view more state
+
   const handleViewMore = () => {
       setViewMore(!viewMore);
   };
@@ -18,7 +18,7 @@ const Comment = ({ commentLine, postId}:any) => {
   const { mutate } = useDeleteComment();  
   
   const handleDeleteComment = (commentId:any) => {
-    // Use the specific commentId here
+
     
 
     mutate({postId:postId,commentId:commentId})
@@ -28,7 +28,7 @@ const Comment = ({ commentLine, postId}:any) => {
   return (
       <>
           <ul className="comments-list post-text">
-              {/* Render only the first 3 comments initially, or all if viewMore is true */}
+  
               {commentLine.slice(0, viewMore ? commentLine.length : 3).map((val: any) => (
                   <div className='flex items-center gap-3 mb-4'>
                   <div>
@@ -56,7 +56,7 @@ const Comment = ({ commentLine, postId}:any) => {
               
               ))}
           </ul>
-          {/* Show the View More button only if there are more than 3 comments */}
+    
           {commentLine.length > 3 && (
               <button onClick={handleViewMore} className="view-more-button">
                   {viewMore ? 'View Less' : 'View More'}
