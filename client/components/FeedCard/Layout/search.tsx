@@ -18,7 +18,7 @@ const SearchBar = () => {
         console.log('Error occurred when fetching users');
       }
     })();
-  }, []); // Removed the dependency [1] as it seemed to be a placeholder. If it was intentional, please adjust accordingly.
+  }, []); 
 
   const handleSearch = (value: string) => {
     setQuery(value);
@@ -26,14 +26,14 @@ const SearchBar = () => {
       setSuggestions([]);
       return;
     }
-    // Filter suggestions based on the input value
+
     const filteredSuggestions = names.filter((user: any) =>
       user.firstName.toLowerCase().includes(value.toLowerCase())
     );
     setSuggestions(filteredSuggestions);
   };
 
-  // Navigate to the user's profile
+
   const goToUserProfile = (UserId: any) => {
     router.push(`/${UserId}`);
     setQuery("");
