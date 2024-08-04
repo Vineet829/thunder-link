@@ -9,6 +9,7 @@ import { Post } from "./post";
 import { GraphqlContext } from "../intefaces";
 import JWTService from "../services/jwt";
 
+
 export async function initServer() {
   const app = express();
 
