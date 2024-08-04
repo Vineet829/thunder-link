@@ -8,6 +8,7 @@ import UserService from "../../services/user";
 import PostService, { CreatePostPayload, CreateCommentData} from "../../services/post";
 
 
+
 const s3Client = new S3Client({
   region: process.env.AWS_DEFAULT_REGION,
 });
