@@ -9,6 +9,7 @@ import { Post, User } from "@/gql/graphql";
 import { graphqlClient } from "@/clients/api";
 import { getUserByIdQuery } from "@/graphql/query/user";
 
+
 import { useCallback, useMemo } from "react";
 import {
   followUserMutation,
