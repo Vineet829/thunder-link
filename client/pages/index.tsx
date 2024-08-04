@@ -16,6 +16,7 @@ interface HomeProps {
   posts?: Post[];
 }
 
+
 export default function Home(props: HomeProps) {
   const { user } = useCurrentUser();
   const { posts = props.posts as Post[] } = useGetAllPosts();
