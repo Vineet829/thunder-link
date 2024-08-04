@@ -30,12 +30,12 @@ const Postlayout: React.FC<PostlayoutProps> = ({ children }) => {
     () => [
       {
         title: "Home",
-        icon: <TbHomeBolt className="w-8 h-8" />, // Adjust the size of the icon
+        icon: <TbHomeBolt className="w-6 h-6 md:w-8 md:h-8" />,
         link: "/",
       },
       {
         title: "Profile",
-        icon: <FaUserAstronaut className="w-8 h-8" />, // Adjust the size of the icon
+        icon: <FaUserAstronaut className="w-6 h-6 md:w-8 md:h-8" />,
         link: `/${user?.id}`,
       },
     ],
@@ -79,65 +79,65 @@ const Postlayout: React.FC<PostlayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="grid grid-cols-12 h-screen bg-gray-900 text-white">
-      <div className="col-span-3 flex flex-col items-center p-4 border-r border-gray-700">
-        <div className="flex items-center mb-8">
-          <AiFillThunderbolt className="w-16 h-16 text-yellow-400" />
+    <div className="flex flex-col md:grid md:grid-cols-12 h-screen bg-gray-900 text-white">
+      <div className="md:col-span-3 flex flex-col items-center p-2 md:p-4 border-b md:border-b-0 md:border-r border-gray-700">
+        <div className="flex items-center mb-4 md:mb-8">
+          <AiFillThunderbolt className="w-12 h-12 md:w-16 md:h-16 text-yellow-400" />
         </div>
-        <ul className="flex-grow">
+        <ul className="flex-grow flex md:block md:space-y-4">
           {sidebarMenuItems.map((item) => (
-            <li key={item.title} className="mb-4">
-              <Link href={item.link} className="flex items-center gap-4 p-3 rounded hover:bg-gray-800">
-                <span className="text-2xl">{item.icon}</span>
-                <span className="text-lg">{item.title}</span>
+            <li key={item.title} className="mb-2 md:mb-4">
+              <Link href={item.link} className="flex items-center gap-2 md:gap-4 p-1 md:p-3 rounded hover:bg-gray-800">
+                <span className="text-lg md:text-2xl">{item.icon}</span>
+                <span className="text-xs md:text-lg">{item.title}</span>
               </Link>
             </li>
           ))}
         </ul>
         {user && (
-          <div className="flex items-center gap-4 p-3 bg-gray-800 rounded mt-auto">
+          <div className="flex items-center gap-2 md:gap-4 p-2 md:p-3 bg-gray-800 rounded mt-auto">
             {user.profileImageURL && (
               <Image
                 className="rounded-full"
                 src={user.profileImageURL}
                 alt="user-image"
-                height={30}
-                width={30}
+                height={24}
+                width={24}
               />
             )}
             <div>
-              <h3 className="text-lg">
+              <h3 className="text-sm md:text-lg">
                 {user.firstName} {user.lastName}
               </h3>
             </div>
           </div>
         )}
       </div>
-      <div className="col-span-6 p-4 overflow-y-auto custom-scrollbar">
+      <div className="md:col-span-6 p-2 md:p-4 overflow-y-auto custom-scrollbar">
         {children}
       </div>
-      <div className="col-span-3 p-4 flex flex-col">
-        <div className="w-full p-4 bg-gray-800 rounded-lg mb-8">
-          <h1 className="mb-4 text-2xl">{!user ? "New to ThunderLink?" : "Users you may know"}</h1>
+      <div className="md:col-span-3 p-2 md:p-4 flex flex-col items-center justify-center">
+        <div className="w-full p-2 md:p-4 bg-gray-800 rounded-lg mb-4 md:mb-8 flex flex-col items-center">
+          <h1 className="mb-2 md:mb-4 text-lg md:text-2xl text-center">{!user ? "New to ThunderLink?" : "Users you may know"}</h1>
           {!user ? (
             <GoogleLogin onSuccess={handleLoginWithGoogle} />
           ) : (
             user.recommendedUsers?.map((el: any) => (
-              <div className="flex items-center gap-4 mb-4" key={el.id}>
+              <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4" key={el.id}>
                 {el.profileImageURL && (
                   <Image
                     src={el.profileImageURL}
                     alt="user-image"
                     className="rounded-full"
-                    width={60}
-                    height={60}
+                    width={36}
+                    height={36}
                   />
                 )}
                 <div>
-                  <div className="text-lg">
+                  <div className="text-sm md:text-lg">
                     {el.firstName} {el.lastName}
                   </div>
-                  <Link href={`/${el.id}`} className="bg-green-500 text-white text-sm px-4 py-1 rounded-lg">
+                  <Link href={`/${el.id}`} className="bg-green-500 text-white text-xs md:text-sm px-2 md:px-4 py-1 rounded-lg">
                     View
                   </Link>
                 </div>
@@ -145,12 +145,12 @@ const Postlayout: React.FC<PostlayoutProps> = ({ children }) => {
             ))
           )}
         </div>
-        <div className="w-full mt-8">
+        <div className="w-full mt-4 md:mt-8">
           <SearchForm />
         </div>
-        <div className="w-full mt-8">
+        <div className="w-full mt-4 md:mt-8 flex justify-center">
           <button
-            className="w-32 bg-red-500 font-semibold text-base py-1 rounded-full px-4 ml-40"
+            className="w-24 md:w-32 bg-red-500 font-semibold text-xs md:text-base py-1 rounded-full px-2 md:px-4"
             onClick={logout}
           >
             Logout
