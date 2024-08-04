@@ -1,4 +1,5 @@
 export const muatations = `#graphql
+    
     createPost(payload: CreatePostData!): Post
     likePost(postId: ID!): Boolean
     unlikePost(postId: ID!): Boolean
