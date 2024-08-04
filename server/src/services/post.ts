@@ -1,6 +1,7 @@
 import { prismaClient } from "../clients/db";
 import { redisClient } from "../clients/redis";
 
+
 export interface CreatePostPayload {
   content: string;
   imageURL?: string;
