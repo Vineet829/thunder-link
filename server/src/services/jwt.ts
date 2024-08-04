@@ -4,6 +4,7 @@ import { JWTUser } from "../intefaces";
 
 const JWT_SECRET = "$uper@1234.";
 
+
 class JWTService {
   public static generateTokenForUser(user: User) {
     const payload: JWTUser = {
