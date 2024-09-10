@@ -2,43 +2,22 @@ import axios from "axios";
 import { prismaClient } from "../clients/db";
 import JWTService from "./jwt";
 
-
 interface GoogleTokenResult {
-  iss?: string;
-  nbf?: string;
-  aud?: string;
-  sub?: string;
   email: string;
   email_verified: string;
-  azp?: string;
-  name?: string;
-  picture?: string;
   given_name: string;
   family_name?: string;
-  iat?: string;
-  exp?: string;
-  jti?: string;
-  alg?: string;
-  kid?: string;
-  typ?: string;
+  picture?: string;
 }
 
 class UserService {
-  
   public static async getAllUsers() {
-    // await redisClient.del("ALL_POSTS");
-    // const cachedPosts = await redisClient.get("ALL_POSTS");
-    // if (cachedPosts) return JSON.parse(cachedPosts);
-   
     const users = await prismaClient.user.findMany({
       orderBy: { createdAt: "desc" },
     });
-    // await redisClient.set("ALL_POSTS", JSON.stringify(posts));
     return users;
   }
-  
-  
-  
+
   public static async verifyGoogleAuthToken(token: string) {
     const googleToken = token;
     const googleOauthURL = new URL("https://oauth2.googleapis.com/tokeninfo");
@@ -81,12 +60,6 @@ class UserService {
     return prismaClient.user.findUnique({ where: { id } });
   }
 
-  
-
-  
-
-  
-  
   public static followUser(from: string, to: string) {
     return prismaClient.follows.create({
       data: {
