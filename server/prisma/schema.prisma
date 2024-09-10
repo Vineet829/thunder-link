@@ -67,12 +67,11 @@ model Like {
 }
 
 model Comment {
-  id      String   @id @default(cuid()) // Unique identifier for each comment
-  userId  String // The ID of the user who made the comment
-  user    User    @relation(fields: [userId], references: [id]) // Relation to the User model
-  postId String // The ID of the tweet the comment is on
-  post   Post   @relation(fields: [postId], references: [id]) // Relation to the Tweet model
-  content String // The content of the comment
-  
-  @@unique([userId, postId, content]) // Optional: Ensures that the combination of userId, tweetId, and content is unique
+  id      String   @id @default(cuid()) 
+  userId  String 
+  user    User    @relation(fields: [userId], references: [id]) 
+  postId String 
+  post   Post   @relation(fields: [postId], references: [id]) 
+  content String 
+  @@unique([userId, postId, content]) 
 }

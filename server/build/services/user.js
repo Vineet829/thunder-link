@@ -18,13 +18,9 @@ const jwt_1 = __importDefault(require("./jwt"));
 class UserService {
     static getAllUsers() {
         return __awaiter(this, void 0, void 0, function* () {
-            // await redisClient.del("ALL_POSTS");
-            // const cachedPosts = await redisClient.get("ALL_POSTS");
-            // if (cachedPosts) return JSON.parse(cachedPosts);
             const users = yield db_1.prismaClient.user.findMany({
                 orderBy: { createdAt: "desc" },
             });
-            // await redisClient.set("ALL_POSTS", JSON.stringify(posts));
             return users;
         });
     }
