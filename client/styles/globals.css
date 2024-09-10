@@ -38,8 +38,8 @@ body {
   color: rgb(var(--foreground-rgb));
   
 
-  background-color: #000; /* Dark background */
-  color: #fff; /* Light text for readability */
+  background-color: #000; 
+  color: #fff;
   font-family: "Proxima Nova", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
@@ -196,7 +196,7 @@ body {
 
 .card{
   background-color: black;
-  border: 2px solid #404040; /* Lighter gray border */
+  border: 2px solid #404040; 
   padding: 20px;
   color: white;}
   

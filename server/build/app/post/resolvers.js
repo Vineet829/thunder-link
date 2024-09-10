@@ -43,15 +43,9 @@ const queries = {
         return signedURL;
     }),
     getPostById: (parent, { id }, ctx) => __awaiter(void 0, void 0, void 0, function* () { return post_1.default.getPostById(id); }),
-    getAllComments: (parent, // Consider defining a specific type
-    { postId }, ctx // Use your actual context type here
-    ) => {
-        // Check if ctx.user is defined
-        if (!ctx.user) {
-            // Handle the case where the user is not logged in or undefined
-            // For example, throw an error or return a default value
+    getAllComments: (parent, { postId }, ctx) => {
+        if (!ctx.user)
             throw new Error("User not authenticated");
-        }
         const comments = post_1.default.getAllComments(postId);
         return comments;
     }
@@ -64,83 +58,56 @@ const mutations = {
         return post;
     }),
     addCommentToPost: (parent, { payload }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
-        // Check if the user is authenticated
         if (!ctx.user)
             throw new Error("You are not authenticated");
-        // Call a service method to create the comment, passing the content, tweetId, and userId
         const comment = yield post_1.default.addCommentToPost({
             content: payload.content,
             postId: payload.postId,
-            userId: ctx.user.id // Assuming the user's ID is available in the context
+            userId: ctx.user.id
         });
-        // Return the created comment
         return comment;
     }),
-    likePost: (parent, { postId }, // Assuming the front-end sends the tweet ID to be liked
-    ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    likePost: (parent, { postId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
         if (!ctx.user || !ctx.user.id)
             throw new Error("unauthenticated");
-        // Attempt to like the tweet
         yield post_1.default.likePost(ctx.user.id, postId);
-        // Invalidate or update related cache entries if necessary
-        return true; // Indicates success
+        return true;
     }),
-    unlikePost: (parent, { postId }, // Assuming the front-end sends the tweet ID to be unliked
-    ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    unlikePost: (parent, { postId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
         if (!ctx.user || !ctx.user.id)
             throw new Error("unauthenticated");
-        // Attempt to unlike the tweet
         yield post_1.default.unlikePost(ctx.user.id, postId);
-        // Invalidate or update related cache entries if necessary
-        return true; // Indicates success
+        return true;
     }),
-    deleteSingleComment: (parent, { postId, commentId }, // Assuming the front-end sends the tweet ID to be unliked
-    ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    deleteSingleComment: (parent, { postId, commentId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
         if (!ctx.user || !ctx.user.id)
             throw new Error("unauthenticated");
-        // Attempt to unlike the tweet
         yield post_1.default.deleteSingleComment(postId, commentId);
-        // Invalidate or update related cache entries if necessary
-        return true; // Indicates success
+        return true;
     }),
-    userHasLikedPost: (parent, // Consider defining a specific type
-    { postId }, ctx // Use your actual context type here
-    ) => {
-        // Check if ctx.user is defined
-        if (!ctx.user) {
-            // Handle the case where the user is not logged in or undefined
-            // For example, throw an error or return a default value
+    userHasLikedPost: (parent, { postId }, ctx) => {
+        if (!ctx.user)
             throw new Error("User not authenticated");
-        }
         const hasLiked = post_1.default.userHasLikedPost(ctx.user.id, postId);
         return hasLiked;
-    },
-    deleteLikes: (parent, { postId }, // Assuming the front-end sends the tweet ID to be unliked
-    ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    }),
+    deleteLikes: (parent, { postId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
         if (!ctx.user || !ctx.user.id)
             throw new Error("unauthenticated");
-        // Attempt to unlike the tweet
         yield post_1.default.deleteLikes(postId);
-        // Invalidate or update related cache entries if necessary
-        return true; // Indicates success
+        return true;
     }),
-    deleteComments: (parent, { postId }, // Assuming the front-end sends the tweet ID to be unliked
-    ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    deleteComments: (parent, { postId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
         if (!ctx.user || !ctx.user.id)
             throw new Error("unauthenticated");
-        // Attempt to unlike the tweet
         yield post_1.default.deleteComments(postId);
-        // Invalidate or update related cache entries if necessary
-        return true; // Indicates success
+        return true;
     }),
-    deletePost: (parent, { postId }, // Assuming the front-end sends the tweet ID to be unliked
-    ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    deletePost: (parent, { postId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
         if (!ctx.user || !ctx.user.id)
             throw new Error("unauthenticated");
-        // Attempt to unlike the tweet
         yield post_1.default.deletePost(ctx.user.id, postId);
-        // Invalidate or update related cache entries if necessary
-        return true; // Indicates success
+        return true;
     }),
 };
 const extraResolvers = {
