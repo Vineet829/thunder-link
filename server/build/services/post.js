@@ -31,7 +31,6 @@ class PostService {
     }
     static addCommentToPost(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Create the comment in the database
             const comment = yield db_1.prismaClient.comment.create({
                 data: {
                     content: data.content,
@@ -110,7 +109,6 @@ class PostService {
     }
     static deleteSingleComment(postId, commentId) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Try to find the comment based on commentId and postId
             const comment = yield db_1.prismaClient.comment.findFirst({
                 where: {
                     AND: [
@@ -119,11 +117,10 @@ class PostService {
                     ],
                 }
             });
-            // If the comment exists and matches the criteria, proceed with deletion
             if (comment) {
                 yield db_1.prismaClient.comment.delete({
                     where: {
-                        id: comment.id, // It's safer to use the id from the found comment object
+                        id: comment.id,
                     },
                 });
             }
@@ -143,7 +140,6 @@ class PostService {
     }
     static deletePost(userId, postId) {
         return __awaiter(this, void 0, void 0, function* () {
-            // First, check if the tweet belongs to the user
             const post = yield db_1.prismaClient.post.findFirst({
                 where: {
                     id: postId,
