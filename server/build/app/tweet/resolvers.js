@@ -43,8 +43,7 @@ const queries = {
         return signedURL;
     }),
     getTweetById: (parent, { id }, ctx) => __awaiter(void 0, void 0, void 0, function* () { return tweet_1.default.getTweetById(id); }),
-    getAllComments: (parent, // Consider defining a specific type
-    { tweetId }) => {
+    getAllComments: (parent, { tweetId }) => {
         const comments = tweet_1.default.getAllComments(tweetId);
         return comments;
     }
@@ -57,57 +56,36 @@ const mutations = {
         return tweet;
     }),
     addCommentToTweet: (parent, { payload }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
-        // Check if the user is authenticated
         if (!ctx.user)
             throw new Error("You are not authenticated");
-        // Call a service method to create the comment, passing the content, tweetId, and userId
         const comment = yield tweet_1.default.addCommentToTweet({
             content: payload.content,
             tweetId: payload.tweetId,
-            userId: ctx.user.id // Assuming the user's ID is available in the context
+            userId: ctx.user.id
         });
-        // Return the created comment
         return comment;
     }),
-    likeTweet: (parent, { tweetId }, // Assuming the front-end sends the tweet ID to be liked
-    ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    likeTweet: (parent, { tweetId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
         if (!ctx.user || !ctx.user.id)
             throw new Error("unauthenticated");
-        // Attempt to like the tweet
         yield tweet_1.default.likeTweet(ctx.user.id, tweetId);
-        // Invalidate or update related cache entries if necessary
-        return true; // Indicates success
+        return true;
     }),
-    unlikeTweet: (parent, { tweetId }, // Assuming the front-end sends the tweet ID to be unliked
-    ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    unlikeTweet: (parent, { tweetId }, ctx) => __awaiter(void 0, void 0, void 0, function* () {
         if (!ctx.user || !ctx.user.id)
             throw new Error("unauthenticated");
-        // Attempt to unlike the tweet
         yield tweet_1.default.unlikeTweet(ctx.user.id, tweetId);
-        // Invalidate or update related cache entries if necessary
-        return true; // Indicates success
+        return true;
     }),
-    userHasLikedTweet: (parent, // Consider defining a specific type
-    { tweetId }, ctx // Use your actual context type here
-    ) => {
-        // Check if ctx.user is defined
-        if (!ctx.user) {
-            // Handle the case where the user is not logged in or undefined
-            // For example, throw an error or return a default value
+    userHasLikedTweet: (parent, { tweetId }, ctx) => {
+        if (!ctx.user)
             throw new Error("User not authenticated");
-        }
         const hasLiked = tweet_1.default.userHasLikedTweet(ctx.user.id, tweetId);
         return hasLiked;
-    },
-    deleteTweet: (parent, // Consider defining a specific type
-    { tweetId }, ctx // Use your actual context type here
-    ) => {
-        // Check if ctx.user is defined
-        if (!ctx.user) {
-            // Handle the case where the user is not logged in or undefined
-            // For example, throw an error or return a default value
+    }),
+    deleteTweet: (parent, { tweetId }, ctx) => {
+        if (!ctx.user)
             throw new Error("User not authenticated");
-        }
         const hasLiked = tweet_1.default.deleteTweet(ctx.user.id, tweetId);
         return hasLiked;
     },
