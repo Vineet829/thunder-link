@@ -54,8 +54,8 @@ function initServer() {
                 };
             }),
         }));
-        const PORT = 8000; // Commonly used port for HTTP is 80, but you can use any available port
-        // Start HTTP server
+        const PORT = 8000; 
+        
         app.listen(PORT, () => {
             console.log(`HTTP Server is running on http://localhost:${PORT}`);
         });
