@@ -105,7 +105,12 @@ Make sure you have the following installed on your local machine:
 - **Register**: Create a new user account.
 - **Login**: Log into an existing account.
 
-![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder2.png)
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/1.png" alt="alt text" width="300" height="200">
+
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/2.png" alt="alt text" width="300" height="200">
+
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/3.png" alt="alt text" width="300" height="200">
+
 
 ### Posts
 
