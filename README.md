@@ -111,7 +111,7 @@ Make sure you have the following installed on your local machine:
 
 <img src="https://github.com/Vineet829/thunder-link/blob/main/images/3.png" alt="alt text" width="1000" height="600">
 
- <img src="https://github.com/Vineet829/thunder-link/blob/main/images/10.png" alt="alt text" width="800" height="800">
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/10.png" alt="alt text" width="500" height="800">
 
 ### Posts
 
