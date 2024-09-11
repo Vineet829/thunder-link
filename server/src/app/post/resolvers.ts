@@ -45,6 +45,7 @@ const queries = {
     ctx: GraphqlContext
   ) => PostService.getPostById(id),
 
+ 
   getAllComments: (
     parent: any,
     { postId }: { postId: string },
