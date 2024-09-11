@@ -111,6 +111,8 @@ Make sure you have the following installed on your local machine:
 
 <img src="https://github.com/Vineet829/thunder-link/blob/main/images/3.png" alt="alt text" width="1000" height="600">
 
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/10.png" alt="alt text" width="1000" height="600">
+
 
 ### Posts
 
@@ -118,7 +120,17 @@ Make sure you have the following installed on your local machine:
 - **View Posts**: Browse all posts or a specific user's posts.
 - **Delete Post**: Remove a post.
 
-![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder1.png)
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/5.png" alt="alt text" width="1000" height="600">
+
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/6.png" alt="alt text" width="1000" height="600">
+
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/9.png" alt="alt text" width="1000" height="600">
+
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/11.png" alt="alt text" width="1000" height="600">
+
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/12.png" alt="alt text" width="1000" height="600">
+
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/13.png" alt="alt text" width="1000" height="600">
 
 ### Comments
 
@@ -126,7 +138,14 @@ Make sure you have the following installed on your local machine:
 - **Delete Comment**: Remove a specific comment.
 - **Delete All Comments**: Remove all comments for a post.
 
-![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder4.png)
+
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/7.png" alt="alt text" width="1000" height="600">
+
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/8.png" alt="alt text" width="1000" height="600">
+
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/14.png" alt="alt text" width="1000" height="600">
+
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/15.png" alt="alt text" width="1000" height="600">
 
 ### Likes
 
@@ -139,13 +158,14 @@ Make sure you have the following installed on your local machine:
 - **Follow User**: Follow another user.
 - **Unfollow User**: Unfollow a user.
 
-![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder6.png)
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/3.png" alt="alt text" width="1000" height="600">
+
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/4.png" alt="alt text" width="1000" height="600">
 
 ### Image Uploads
 
 - **Upload Images**: Upload images to AWS S3 for inclusion in posts.
 
- ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder3.png)
 
 ## Contributing
 
@@ -154,7 +174,3 @@ Make sure you have the following installed on your local machine:
 3. Commit your changes.
 4. Push to your forked repository.
 5. Create a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
