@@ -125,11 +125,11 @@ Make sure you have the following installed on your local machine:
 
 <img src="https://github.com/Vineet829/thunder-link/blob/main/images/9.png" alt="alt text" width="1000" height="600">
 
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/11.jpeg" alt="alt text" width="1000" height="600">
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/11.png" alt="alt text" width="400" height="800">
 
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/12.jpeg" alt="alt text" width="1000" height="600">
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/12.png" alt="alt text" width="400" height="800">
 
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/13.jpeg" alt="alt text" width="1000" height="600">
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/13.png" alt="alt text" width="400" height="800">
 
 ### Comments
 
@@ -142,9 +142,9 @@ Make sure you have the following installed on your local machine:
 
 <img src="https://github.com/Vineet829/thunder-link/blob/main/images/8.png" alt="alt text" width="1000" height="600">
 
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/14.jpeg" alt="alt text" width="1000" height="600">
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/14.png" alt="alt text" width="400" height="800">
 
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/15.jpeg" alt="alt text" width="1000" height="600">
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/15.png" alt="alt text" width="400" height="800">
 
 ### Likes
 
