@@ -166,8 +166,6 @@ Make sure you have the following installed on your local machine:
 - **Upload Images**: Upload images to AWS S3 for inclusion in posts.
 
 
-## Contributing
-
 1. Fork the repository.
 2. Create a new branch for your feature or bugfix.
 3. Commit your changes.
