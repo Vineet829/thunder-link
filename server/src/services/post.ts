@@ -66,7 +66,15 @@ class PostService {
     });
     return like !== null;
   }
-
+  public static async getTotalLikesForPost(postId: string) {
+    const totalLikes = await prismaClient.like.count({
+      where: {
+        postId: postId,
+      },
+    });
+    return totalLikes;
+  }
+  
   public static async getAllComments(postId: string) {
     const comments = await prismaClient.comment.findMany({
       where: {

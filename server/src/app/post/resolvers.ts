@@ -13,6 +13,7 @@ const s3Client = new S3Client({
 
 const queries = {
   getAllPosts: () => PostService.getAllPosts(),
+  
   getSignedURLForPost: async (
     parent: any,
     { imageType, imageName }: { imageType: string; imageName: string },
@@ -36,16 +37,15 @@ const queries = {
     });
 
     const signedURL = await getSignedUrl(s3Client, putObjectCommand);
-
     return signedURL;
   },
+  
   getPostById: async (
     parent: any,
     { id }: { id: string },
     ctx: GraphqlContext
   ) => PostService.getPostById(id),
 
- 
   getAllComments: (
     parent: any,
     { postId }: { postId: string },
@@ -57,7 +57,13 @@ const queries = {
 
     const comments = PostService.getAllComments(postId);
     return comments;
-  }
+  },
+
+  getTotalLikesForPost: async (
+    parent: any,
+    { postId }: { postId: string },
+    ctx: GraphqlContext
+  ) => PostService.getTotalLikesForPost(postId),
 };
 
 const mutations = {
@@ -99,7 +105,6 @@ const mutations = {
     if (!ctx.user || !ctx.user.id) throw new Error("unauthenticated");
 
     await PostService.likePost(ctx.user.id, postId);
-
     return true;
   },
 
@@ -111,7 +116,6 @@ const mutations = {
     if (!ctx.user || !ctx.user.id) throw new Error("unauthenticated");
 
     await PostService.unlikePost(ctx.user.id, postId);
-
     return true;
   },
 
@@ -123,11 +127,10 @@ const mutations = {
     if (!ctx.user || !ctx.user.id) throw new Error("unauthenticated");
 
     await PostService.deleteSingleComment(postId, commentId);
-
     return true;
   },
 
-  userHasLikedPost: (
+  userHasLikedPost: async (
     parent: any,
     { postId }: { postId: string },
     ctx: GraphqlContext
@@ -136,7 +139,7 @@ const mutations = {
       throw new Error("User not authenticated");
     }
 
-    const hasLiked = PostService.userHasLikedPost(ctx.user.id, postId);
+    const hasLiked = await PostService.userHasLikedPost(ctx.user.id, postId);
     return hasLiked;
   },
 
@@ -148,7 +151,6 @@ const mutations = {
     if (!ctx.user || !ctx.user.id) throw new Error("unauthenticated");
 
     await PostService.deleteLikes(postId);
-
     return true;
   },
 
@@ -160,7 +162,6 @@ const mutations = {
     if (!ctx.user || !ctx.user.id) throw new Error("unauthenticated");
 
     await PostService.deleteComments(postId);
-
     return true;
   },
 
@@ -172,7 +173,6 @@ const mutations = {
     if (!ctx.user || !ctx.user.id) throw new Error("unauthenticated");
 
     await PostService.deletePost(ctx.user.id, postId);
-
     return true;
   },
 };
