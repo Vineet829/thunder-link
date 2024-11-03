@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { BiMessageRounded, BiUpload } from "react-icons/bi";
-import { FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Post } from "@/gql/graphql";
 import Link from "next/link";
 import { deletePostMutation, likePostMutation, unlikePostMutation, userLikedPostMutation } from "@/graphql/mutation/post";
 import { graphqlClient } from "@/clients/api";
-import { useCreateComment } from "@/hooks/post";
+import { useCreateComment, useGetAllComments, useGetTotalLikesForPost } from "@/hooks/post";
 import CommentBox from "./CommentBox";
 import { GoComment } from "react-icons/go";
 import Comment from "./Comment";
-import { getAllCommentsQuery } from "@/graphql/query/post";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useCurrentUser } from "@/hooks/user";
 import { useDeletePost } from "@/hooks/post";
@@ -20,26 +17,21 @@ interface FeedCardProps {
   data: Post;
 }
 
-const FeedCard: React.FC<FeedCardProps> = (props) => {
-  const { data } = props;
+const FeedCard: React.FC<FeedCardProps> = ({ data }) => {
   const { mutateAsync } = useCreateComment();
   const { user } = useCurrentUser();
   const { mutate } = useDeletePost(data.id);
-
+  const { data: comments, refetch: refetchComments } = useGetAllComments(data.id);
+  const { data: totalLikesData, refetch: refetchLikes } = useGetTotalLikesForPost(data.id);
   const [commentLine, setCommentLine] = useState<any>([]);
   const [commentValue, setCommentValue] = useState<string>('');
   const [commentBoxStatus, setCommentBoxStatus] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const books = await graphqlClient.request(getAllCommentsQuery, { postId: data.id });
-        setCommentLine(books.getAllComments);
-      } catch (err) {
-        console.log('Error occurred when fetching books');
-      }
-    })();
-  }, [commentLine]);
+    if (comments) {
+      setCommentLine(comments);
+    }
+  }, [comments]);
 
   const handleCommentValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCommentValue(e.target.value);
@@ -58,10 +50,10 @@ const FeedCard: React.FC<FeedCardProps> = (props) => {
   };
 
   const enterCommentLine = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.charCode === 13) {
+    if (e.key === 'Enter') {
       e.preventDefault();
       handleCreateComment();
-      setCommentBoxStatus(!commentBoxStatus);
+      setCommentBoxStatus(prevStatus => !prevStatus);
       addCommentLine();
     }
   };
@@ -69,6 +61,7 @@ const FeedCard: React.FC<FeedCardProps> = (props) => {
   const handleCreateComment = useCallback(async () => {
     try {
       await mutateAsync({ content: commentValue, postId: data.id });
+      refetchComments();
     } catch (error) {
       console.error('Failed to add comment:', error);
     }
@@ -95,11 +88,13 @@ const FeedCard: React.FC<FeedCardProps> = (props) => {
   const handleLikePost = async () => {
     await graphqlClient.request(likePostMutation, { postId: data.id });
     toggleLike();
+    refetchLikes();
   };
 
   const handleUnlikePost = async () => {
     await graphqlClient.request(unlikePostMutation, { postId: data.id });
     toggleLike();
+    refetchLikes();
   };
 
   const handleCommentClick = () => {
@@ -111,17 +106,19 @@ const FeedCard: React.FC<FeedCardProps> = (props) => {
   };
 
   return (
-    <div className="flex flex-nowrap card p-5 hover:bg-slate-900 transition-all cursor-pointer">
+    <div className="flex flex-nowrap card p-5 transition-all">
       <div className="grid grid-cols-12 gap-3">
         <div className="col-span-1">
           {data.author?.profileImageURL && (
-            <Image
-              className="rounded-full"
-              src={data.author.profileImageURL}
-              alt="user-image"
-              height={50}
-              width={50}
-            />
+            <Link href={`/${data.author?.id}`}>
+              <Image
+                className="rounded-full cursor-pointer"
+                src={data.author.profileImageURL}
+                alt="user-image"
+                height={50}
+                width={50}
+              />
+            </Link>
           )}
         </div>
         <div className="col-span-11 ml-3">
@@ -131,34 +128,64 @@ const FeedCard: React.FC<FeedCardProps> = (props) => {
                 {data.author?.firstName} {data.author?.lastName}
               </Link>
             </h5>
-            {user?.id == data.author?.id && <span onClick={handleDeletePost}><MdOutlineDeleteOutline className="text-3xl delete" /></span>}
+            {user?.id === data.author?.id && (
+              <span className="cursor-pointer" onClick={handleDeletePost}>
+                <MdOutlineDeleteOutline className="text-3xl delete" />
+              </span>
+            )}
           </div>
           <p className="post-text text-xl mt-4 mb-4">{data.content}</p>
           {data.imageURL && (
             <Image style={{ borderRadius: "15px" }} src={data.imageURL} alt="image" width={700} height={700} />
           )}
           <div className="grid gap-4 row-span-12 mt-5 text-xl p-2 w-[90%]">
-            <div className="flex gap-10 items-center row-span-2">
-              <span>
+            <div className="flex items-center row-span-2">
+              <span className="cursor-pointer" onClick={liked ? handleUnlikePost : handleLikePost}>
                 {liked ? (
-                  <AiFillHeart className="w-9 h-9 text-red-500 row-span-1" onClick={handleUnlikePost} />
+                  <AiFillHeart className="w-9 h-9 text-red-500 row-span-1" />
                 ) : (
-                  <AiOutlineHeart className="w-9 h-9 row-span-1" onClick={handleLikePost} />
+                  <AiOutlineHeart className="w-9 h-9 row-span-1" />
                 )}
               </span>
-              <span>
-                <GoComment className="w-8 h-8" onClick={handleCommentClick} />
+              <span className="ml-4 cursor-pointer" onClick={handleCommentClick}>
+                <GoComment className="w-8 h-8" />
               </span>
             </div>
-            <div className="row-span-2">
-              {commentBoxStatus && <CommentBox
-                commentValue={commentValue}
-                handleCommentValue={handleCommentValue}
-                enterCommentLine={enterCommentLine}
-                submitCommentLine={submitCommentLine}
-              />}
+            <div className="flex flex-row min-w-full gap-4 items-center mt-1">
+              {totalLikesData?.totalCount !== undefined && totalLikesData.totalCount > 0 && (
+                <div className="mt-1 text-l">
+                  {totalLikesData.totalCount === 1 ? "1 like" : `${totalLikesData.totalCount} likes`}
+                </div>
+              )}
+              <div className="flex mt-1 overflow-x-auto space-x-2">
+                {totalLikesData?.likes?.map((user: any) => (
+                  user.user.profileImageURL && (
+                    <Link key={user.user.id} href={`/${user.user.id}`}>
+                      <Image
+                        className="rounded-full border-2 border-white cursor-pointer"
+                        src={user.user.profileImageURL}
+                        alt={`${user.user.firstName} ${user.user.lastName}`}
+                        height={30}
+                        width={30}
+                      />
+                    </Link>
+                  )
+                ))}
+              </div>
             </div>
-            <div><Comment commentLine={commentLine} postId={data.id} /></div>
+            <div className="row-span-2">
+              {commentBoxStatus && (
+                <CommentBox
+                  commentValue={commentValue}
+                  handleCommentValue={handleCommentValue}
+                  enterCommentLine={enterCommentLine}
+                  submitCommentLine={submitCommentLine}
+                />
+              )}
+            </div>
+            <div className="max-w-full">
+    <Comment commentLine={commentLine} deleteComment={refetchComments} postId={data.id} />
+  </div>
           </div>
         </div>
       </div>
