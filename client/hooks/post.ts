@@ -4,7 +4,7 @@ import { createPostMutation, addCommentToPostMutation, deleteCommentsMutation } 
 import { getAllPostsQuery } from "@/graphql/query/post";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { getAllCommentsQuery } from "@/graphql/query/post";
+import { getAllCommentsQuery, getTotalLikesForPostQuery} from "@/graphql/query/post";
 import { deletePostMutation } from "@/graphql/mutation/post";
 import { deleteSingleCommentMutation } from "@/graphql/mutation/post";
 
@@ -36,7 +36,7 @@ export const useDeletePost = (postId: string) => {
   return mutation;
 };
 
-export const useDeleteComment = () => {
+export const useDeleteComment = (onSuccessCallback: any) => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: ({ postId, commentId }: { postId: string; commentId: string }) =>
@@ -47,6 +47,9 @@ export const useDeleteComment = () => {
     onSuccess: async () => {
       await queryClient.invalidateQueries(["all-posts"]);
       toast.success("Deleted Comment", { id: "1" });
+      if (onSuccessCallback) {
+        onSuccessCallback(); 
+      }
     }
   });
   return mutation;
@@ -66,13 +69,38 @@ export const useCreateComment = () => {
   return mutation;
 };
 
-export const useGetAllComments = (postId: any) => {
-  const query = useQuery([`all-comments`], async () => {
-    return await graphqlClient.request(getAllCommentsQuery, { postId });
-  });
-  return { ...query, comments: query.data?.getAllComments };
+export const useGetTotalLikesForPost = (postId:any) => {
+  return useQuery(
+    ['total-likes', postId],
+    async () => {
+      const response = await graphqlClient.request(getTotalLikesForPostQuery, { postId });
+      return response.getTotalLikesForPost || { totalCount: 0, users: [] }; 
+    },
+    {
+      enabled: !!postId, 
+      onError: (error) => {
+        console.error("Error fetching total likes:", error);
+      }
+    }
+  );
 };
 
+
+export const useGetAllComments = (postId: string) => {
+  return useQuery(
+    ['all-comments', postId],
+    async () => {
+      const response = await graphqlClient.request(getAllCommentsQuery, { postId:postId });
+      return response.getAllComments || []; 
+    },
+    {
+      enabled: !!postId, 
+      onError: (error) => {
+        console.error("Error fetching comments:", error);
+      }
+    }
+  );
+};
 export const useGetAllPosts = () => {
   const query = useQuery({
     queryKey: ["all-posts"],
