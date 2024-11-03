@@ -16,7 +16,7 @@ import {
 } from "@/graphql/mutation/user";
 import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-import UserModal from "@/components/UserModal"; // Import the UserModal
+import UserModal from "@/components/UserModal"; 
 
 interface ServerProps {
   userInfo?: User;  
@@ -58,15 +58,15 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
   const handleOpenModal = (type: 'followers' | 'following') => {
     const users = type === 'followers' ? props.userInfo?.followers : props.userInfo?.following;
 
-    // Filter out null values and assert the type
+   
     const filteredUsers = (users || []).filter((user): user is User => user !== null) as User[];
 
-    // Map to the desired structure, providing default values for lastName and profileImageURL
+    
     const modalUserList = filteredUsers.map(user => ({
       id: user.id,
       firstName: user.firstName,
-      lastName: user.lastName || 'Unknown', // Provide a default value if lastName is null or undefined
-      profileImageURL: user.profileImageURL || '/default-profile.png', // Provide a default profile image
+      lastName: user.lastName || 'Unknown', 
+      profileImageURL: user.profileImageURL || '/default-profile.png', 
     }));
 
     setModalUsers(modalUserList);
@@ -147,7 +147,7 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
         </div>
       </Postlayout>
 
-      {/* User Modal */}
+    
       <UserModal users={modalUsers} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
