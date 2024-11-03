@@ -5,7 +5,7 @@ import { Post } from "@/gql/graphql";
 import Link from "next/link";
 import { deletePostMutation, likePostMutation, unlikePostMutation, userLikedPostMutation } from "@/graphql/mutation/post";
 import { graphqlClient } from "@/clients/api";
-import { useCreateComment, useGetAllComments, useGetTotalLikesForPost } from "@/hooks/post";
+import { useCreateComment, useGetAllComments, useGetTotalLikesForPost } from "../../hooks/post";
 import CommentBox from "./CommentBox";
 import { GoComment } from "react-icons/go";
 import Comment from "./Comment";
