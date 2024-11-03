@@ -9,14 +9,14 @@ import { Post, User } from "@/gql/graphql";
 import { graphqlClient } from "@/clients/api";
 import { getUserByIdQuery } from "@/graphql/query/user";
 
-
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   followUserMutation,
   unfollowUserMutation, 
 } from "@/graphql/mutation/user";
 import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
+import UserModal from "@/components/UserModal"; // Import the UserModal
 
 interface ServerProps {
   userInfo?: User;  
@@ -27,11 +27,14 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
   const { user: currentUser } = useCurrentUser();
   const queryClient = useQueryClient();
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalUsers, setModalUsers] = useState<{ id: string; firstName: string; lastName: string; profileImageURL: string }[]>([]);
+
   const amIFollowing = useMemo(() => {
     if (!props.userInfo) return false;
     return (
       (currentUser?.following?.findIndex(
-        (el:any) => el?.id === props.userInfo?.id
+        (el: any) => el?.id === props.userInfo?.id
       ) ?? -1) >= 0
     );
   }, [currentUser?.following, props.userInfo]);
@@ -52,54 +55,82 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
     await queryClient.invalidateQueries(["curent-user"]);
   }, [props.userInfo?.id, queryClient]);
 
+  const handleOpenModal = (type: 'followers' | 'following') => {
+    const users = type === 'followers' ? props.userInfo?.followers : props.userInfo?.following;
+
+    // Filter out null values and assert the type
+    const filteredUsers = (users || []).filter((user): user is User => user !== null) as User[];
+
+    // Map to the desired structure, providing default values for lastName and profileImageURL
+    const modalUserList = filteredUsers.map(user => ({
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName || 'Unknown', // Provide a default value if lastName is null or undefined
+      profileImageURL: user.profileImageURL || '/default-profile.png', // Provide a default profile image
+    }));
+
+    setModalUsers(modalUserList);
+    setModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-4">
       <Postlayout>
         <div className="max-w-2xl mx-auto">
-          <nav className="flex items-center gap-3 py-3 px-3 mb-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+          <nav className="flex items-center gap-3 py-3 px-3 mb-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
             <Link href="/">
-              <BsArrowLeftShort className="text-4xl cursor-pointer text-gray-700 dark:text-gray-300" />
+              <BsArrowLeftShort className="text-4xl cursor-pointer text-gray-700 dark:text-gray-300 hover:text-blue-500 transition" />
             </Link>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100">
                 {props.userInfo?.firstName} {props.userInfo?.lastName}
               </h1>
-              <h2 className="text-md font-bold text-gray-500 dark:text-gray-400">
+              <h2 className="text-lg font-semibold text-gray-500 dark:text-gray-400">
                 {props.userInfo?.posts?.length} Posts
               </h2>
             </div>
           </nav>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-4">
             {props.userInfo?.profileImageURL && (
               <Image
                 src={props.userInfo?.profileImageURL}
                 alt="user-image"
-                className="rounded-full mx-auto"
+                className="rounded-full mx-auto border-4 border-blue-500"
                 width={100}
                 height={100}
               />
             )}
-            <h1 className="text-2xl font-bold text-center mt-5 text-gray-900 dark:text-gray-100">
+            <h1 className="text-3xl font-extrabold text-center mt-5 text-gray-900 dark:text-gray-100">
               {props.userInfo?.firstName} {props.userInfo?.lastName}
             </h1>
             <div className="flex justify-between items-center mt-4">
-              <div className="flex gap-4 text-sm text-gray-500 dark:text-gray-400">
-                <span>{props.userInfo?.followers?.length} followers</span>
-                <span>{props.userInfo?.following?.length} following</span>
+              <div className="flex gap-4 text-lg text-gray-500 dark:text-gray-400">
+                <span 
+                  onClick={() => handleOpenModal('followers')}
+                  className="font-semibold text-gray-800 dark:text-gray-200 cursor-pointer hover:underline"
+                >
+                  {props.userInfo?.followers?.length} followers
+                </span>
+                <span 
+                  onClick={() => handleOpenModal('following')}
+                  className="font-semibold text-gray-800 dark:text-gray-200 cursor-pointer hover:underline"
+                >
+                  {props.userInfo?.following?.length} following
+                </span>
               </div>
               {currentUser?.id !== props.userInfo?.id && (
                 <>
                   {amIFollowing ? (
                     <button
                       onClick={handleUnfollowUser}
-                      className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-1 rounded-full text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+                      className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-4 py-2 rounded-full text-sm font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition"
                     >
                       Unfollow
                     </button>
                   ) : (
                     <button
                       onClick={handleFollowUser}
-                      className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm hover:bg-blue-600 transition"
+                      className="bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-600 transition"
                     >
                       Follow
                     </button>
@@ -115,6 +146,9 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
           </div>
         </div>
       </Postlayout>
+
+      {/* User Modal */}
+      <UserModal users={modalUsers} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 };
