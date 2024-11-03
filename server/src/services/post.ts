@@ -26,6 +26,7 @@ class PostService {
     });
     await redisClient.setex(`RATE_LIMIT:POST:${data.userId}`, 10, 1);
     await redisClient.del("ALL_POSTS");
+    
     return post;
   }
 
@@ -37,15 +38,18 @@ class PostService {
         post: { connect: { id: data.postId } },
       },
     });
+  
     await redisClient.setex(`RATE_LIMIT:COMMENT:${data.userId}`, 10, "1");
     await redisClient.del(`COMMENTS_FOR_POST:${data.postId}`);
+  
     return comment;
   }
-
+  
   public static async getAllPosts() {
     await redisClient.del("ALL_POSTS");
     const cachedPosts = await redisClient.get("ALL_POSTS");
     if (cachedPosts) return JSON.parse(cachedPosts);
+   
     const posts = await prismaClient.post.findMany({
       orderBy: { createdAt: "desc" },
     });
@@ -56,7 +60,7 @@ class PostService {
   public static getPostById(id: string) {
     return prismaClient.post.findUnique({ where: { id } });
   }
-
+  
   public static async userHasLikedPost(userId: string, postId: string) {
     const like = await prismaClient.like.findFirst({
       where: {
@@ -65,14 +69,6 @@ class PostService {
       },
     });
     return like !== null;
-  }
-  public static async getTotalLikesForPost(postId: string) {
-    const totalLikes = await prismaClient.like.count({
-      where: {
-        postId: postId,
-      },
-    });
-    return totalLikes;
   }
   
   public static async getAllComments(postId: string) {
@@ -83,7 +79,36 @@ class PostService {
     });
     return comments;
   }
-
+  
+  public static async getTotalLikesForPost(postId: string) {
+    const totalLikes = await prismaClient.like.count({
+      where: {
+        postId: postId,
+      },
+    });
+  
+    const likes = await prismaClient.like.findMany({
+      where: {
+        postId: postId,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            profileImageURL: true,
+          },
+        },
+      },
+    });
+  
+    return likes.map(like => ({
+      user: like.user,
+      createdAt: like.createdAt,
+    }));
+  }
+  
   public static async likePost(userId: string, postId: string) {
     return prismaClient.like.create({
       data: {
@@ -101,12 +126,12 @@ class PostService {
 
   public static async deleteComments(postId: string) {
     return prismaClient.comment.deleteMany({
-      where: {
+      where: { 
         postId: postId
       }
     });
   }
-
+  
   public static async deleteSingleComment(postId: string, commentId: string) {
     const comment = await prismaClient.comment.findFirst({
       where: {
@@ -116,6 +141,7 @@ class PostService {
         ],
       }
     });
+  
     if (comment) {
       await prismaClient.comment.delete({
         where: {
@@ -126,15 +152,15 @@ class PostService {
       throw new Error('Comment not found or does not match the specified criteria.');
     }
   }
-
+  
   public static async deleteLikes(postId: string) {
     return prismaClient.like.deleteMany({
-      where: {
+      where: { 
         postId: postId
       }
     });
   }
-
+  
   public static async deletePost(userId: string, postId: string) {
     const post = await prismaClient.post.findFirst({
       where: {
@@ -142,8 +168,9 @@ class PostService {
         authorId: userId,
       },
     });
+  
     if (post) {
-      await this.deleteLikes(postId);
+      await this.deleteLikes(postId);  
       await this.deleteComments(postId);
       return prismaClient.post.delete({
         where: {
