@@ -37,6 +37,7 @@ const FeedCard: React.FC<FeedCardProps> = ({ data }) => {
     setCommentValue(e.target.value);
   };
 
+  
   const addCommentLine = () => {
     setCommentLine(commentLine);
     setCommentValue('');
