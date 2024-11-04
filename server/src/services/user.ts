@@ -60,20 +60,33 @@ class UserService {
     return prismaClient.user.findUnique({ where: { id } });
   }
 
-  public static followUser(from: string, to: string) {
-    return prismaClient.follows.create({
-      data: {
-        follower: { connect: { id: from } },
-        following: { connect: { id: to } },
-      },
+  public static async followUser(from: string, to: string) {
+    const existingFollow = await prismaClient.follows.findUnique({
+        where: {
+            followerId_followingId: {
+                followerId: from,
+                followingId: to,
+            },
+        },
     });
-  }
 
-  public static unfollowUser(from: string, to: string) {
-    return prismaClient.follows.delete({
-      where: { followerId_followingId: { followerId: from, followingId: to } },
+    if (existingFollow) {
+        throw new Error("You are already following this user.");
+    }
+
+    return prismaClient.follows.create({
+        data: {
+            follower: { connect: { id: from } },
+            following: { connect: { id: to } },
+        },
     });
-  }
+}
+
+public static unfollowUser(from: string, to: string) {
+    return prismaClient.follows.delete({
+        where: { followerId_followingId: { followerId: from, followingId: to } },
+    });
+}
 }
 
 export default UserService;
