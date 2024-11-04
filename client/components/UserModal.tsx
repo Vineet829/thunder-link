@@ -7,6 +7,7 @@ interface UserModalProps {
   onClose: () => void;
 }
 
+
 const UserModal: React.FC<UserModalProps> = ({ users, isOpen, onClose }) => {
   if (!isOpen) return null;
 
