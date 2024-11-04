@@ -8,7 +8,6 @@ import FeedCard from "@/components/FeedCard";
 import { Post, User } from "@/gql/graphql";
 import { graphqlClient } from "@/clients/api";
 import { getUserByIdQuery } from "@/graphql/query/user";
-
 import { useCallback, useMemo, useState } from "react";
 import {
   followUserMutation,
@@ -29,6 +28,9 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalUsers, setModalUsers] = useState<{ id: string; firstName: string; lastName: string; profileImageURL: string }[]>([]);
+  const [followerCount, setFollowerCount] = useState(props.userInfo?.followers?.length || 0);
+  const [followingCount, setFollowingCount] = useState(props.userInfo?.following?.length || 0);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const amIFollowing = useMemo(() => {
     if (!props.userInfo) return false;
@@ -40,35 +42,32 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
   }, [currentUser?.following, props.userInfo]);
 
   const handleFollowUser = useCallback(async () => {
-    if (!props.userInfo?.id) return;
-
+    if (!props.userInfo?.id || buttonDisabled) return;
+    setButtonDisabled(true);
     await graphqlClient.request(followUserMutation, { to: props.userInfo?.id });
+    setFollowerCount(prev => prev + 1);
     await queryClient.invalidateQueries(["curent-user"]);
-  }, [props.userInfo?.id, queryClient]);
+    setTimeout(() => setButtonDisabled(false), 1500);
+  }, [props.userInfo?.id, queryClient, buttonDisabled]);
 
   const handleUnfollowUser = useCallback(async () => {
-    if (!props.userInfo?.id) return;
-
-    await graphqlClient.request(unfollowUserMutation, {
-      to: props.userInfo?.id,
-    });
+    if (!props.userInfo?.id || buttonDisabled) return;
+    setButtonDisabled(true);
+    await graphqlClient.request(unfollowUserMutation, { to: props.userInfo?.id });
+    setFollowerCount(prev => prev - 1);
     await queryClient.invalidateQueries(["curent-user"]);
-  }, [props.userInfo?.id, queryClient]);
+    setTimeout(() => setButtonDisabled(false), 1500);
+  }, [props.userInfo?.id, queryClient, buttonDisabled]);
 
   const handleOpenModal = (type: 'followers' | 'following') => {
     const users = type === 'followers' ? props.userInfo?.followers : props.userInfo?.following;
-
-   
     const filteredUsers = (users || []).filter((user): user is User => user !== null) as User[];
-
-    
     const modalUserList = filteredUsers.map(user => ({
       id: user.id,
       firstName: user.firstName,
       lastName: user.lastName || 'Unknown', 
       profileImageURL: user.profileImageURL || '/default-profile.png', 
     }));
-
     setModalUsers(modalUserList);
     setModalOpen(true);
   };
@@ -109,13 +108,13 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
                   onClick={() => handleOpenModal('followers')}
                   className="font-semibold text-gray-800 dark:text-gray-200 cursor-pointer hover:underline"
                 >
-                  {props.userInfo?.followers?.length} followers
+                  {followerCount} followers
                 </span>
                 <span 
                   onClick={() => handleOpenModal('following')}
                   className="font-semibold text-gray-800 dark:text-gray-200 cursor-pointer hover:underline"
                 >
-                  {props.userInfo?.following?.length} following
+                  {followingCount} following
                 </span>
               </div>
               {currentUser?.id !== props.userInfo?.id && (
@@ -123,14 +122,16 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
                   {amIFollowing ? (
                     <button
                       onClick={handleUnfollowUser}
-                      className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-4 py-2 rounded-full text-sm font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+                      className={`bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-4 py-2 rounded-full text-sm font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition ${buttonDisabled ? 'cursor-not-allowed opacity-50' : ''}`}
+                      disabled={buttonDisabled}
                     >
                       Unfollow
                     </button>
                   ) : (
                     <button
                       onClick={handleFollowUser}
-                      className="bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-600 transition"
+                      className={`bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-600 transition ${buttonDisabled ? 'cursor-not-allowed opacity-50' : ''}`}
+                      disabled={buttonDisabled}
                     >
                       Follow
                     </button>
@@ -146,8 +147,6 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
           </div>
         </div>
       </Postlayout>
-
-    
       <UserModal users={modalUsers} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
@@ -157,13 +156,9 @@ export const getServerSideProps: GetServerSideProps<ServerProps> = async (
   context
 ) => {
   const id = context.query.id as string | undefined;
-
   if (!id) return { notFound: true, props: { userInfo: undefined } };
-
   const userInfo = await graphqlClient.request(getUserByIdQuery, { id });
-
   if (!userInfo?.getUserById) return { notFound: true };
-
   return {
     props: {
       userInfo: userInfo.getUserById as User,
