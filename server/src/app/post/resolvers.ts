@@ -25,6 +25,7 @@ const queries = {
       "image/jpeg",
       "image/png",
       "image/webp",
+      "image/avif"
     ];
 
     if (!allowedImageTypes.includes(imageType))
