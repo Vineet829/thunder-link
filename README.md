@@ -131,7 +131,9 @@ Make sure you have the following installed on your local machine:
  ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder2.png)
  ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder3.png)
  ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder4.png)
+ 
  <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th5.jpg" alt="alt text" width="400" height="800">
+ 
  <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th6.jpg" alt="alt text" width="400" height="800">
  
 
