@@ -105,13 +105,11 @@ Make sure you have the following installed on your local machine:
 - **Register**: Create a new user account.
 - **Login**: Log into an existing account.
 
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/1.png" alt="alt text" width="1000" height="600">
+   ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/2.png)
 
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/2.png" alt="alt text" width="1000" height="600">
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/th1.png" alt="alt text" width="1000" height="600">
 
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/3.png" alt="alt text" width="1000" height="600">
 
- <img src="https://github.com/Vineet829/thunder-link/blob/main/images/10.png" alt="alt text" width="400" height="800">
 
 ### Posts
 
@@ -119,17 +117,10 @@ Make sure you have the following installed on your local machine:
 - **View Posts**: Browse all posts or a specific user's posts.
 - **Delete Post**: Remove a post.
 
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/5.png" alt="alt text" width="1000" height="600">
 
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/6.png" alt="alt text" width="1000" height="600">
-
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/9.png" alt="alt text" width="1000" height="600">
-
- <img src="https://github.com/Vineet829/thunder-link/blob/main/images/11.png" alt="alt text" width="400" height="800">
-
- <img src="https://github.com/Vineet829/thunder-link/blob/main/images/12.png" alt="alt text" width="400" height="800">
-
- <img src="https://github.com/Vineet829/thunder-link/blob/main/images/13.png" alt="alt text" width="400" height="800">
+ ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder5.png)
+  ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder6.png)
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th2.png" alt="alt text" width="400" height="800">
 
 ### Comments
 
@@ -137,14 +128,12 @@ Make sure you have the following installed on your local machine:
 - **Delete Comment**: Remove a specific comment.
 - **Delete All Comments**: Remove all comments for a post.
 
-
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/7.png" alt="alt text" width="1000" height="600">
-
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/8.png" alt="alt text" width="1000" height="600">
-
- <img src="https://github.com/Vineet829/thunder-link/blob/main/images/14.png" alt="alt text" width="400" height="800">
-
- <img src="https://github.com/Vineet829/thunder-link/blob/main/images/15.png" alt="alt text" width="400" height="800">
+ ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder2.png)
+ ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder3.png)
+ ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder4.png)
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th5.png" alt="alt text" width="400" height="800">
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th6.png" alt="alt text" width="400" height="800">
+ 
 
 ### Likes
 
@@ -156,10 +145,10 @@ Make sure you have the following installed on your local machine:
 
 - **Follow User**: Follow another user.
 - **Unfollow User**: Unfollow a user.
-
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/3.png" alt="alt text" width="1000" height="600">
-
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/4.png" alt="alt text" width="1000" height="600">
+ ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder7.png)
+ ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder8.png)
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th3.png" alt="alt text" width="400" height="800">
+  <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th4.png" alt="alt text" width="400" height="800">
 
 ### Image Uploads
 
