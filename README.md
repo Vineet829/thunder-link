@@ -105,9 +105,9 @@ Make sure you have the following installed on your local machine:
 - **Register**: Create a new user account.
 - **Login**: Log into an existing account.
 
-   ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/2.png)
+   ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder1.png)
 
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/th1.png" alt="alt text" width="1000" height="600">
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/th1.jpg" alt="alt text" width="1000" height="600">
 
 
 
@@ -120,7 +120,7 @@ Make sure you have the following installed on your local machine:
 
  ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder5.png)
   ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder6.png)
- <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th2.png" alt="alt text" width="400" height="800">
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th2.jpg" alt="alt text" width="400" height="800">
 
 ### Comments
 
@@ -131,8 +131,8 @@ Make sure you have the following installed on your local machine:
  ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder2.png)
  ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder3.png)
  ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder4.png)
- <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th5.png" alt="alt text" width="400" height="800">
- <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th6.png" alt="alt text" width="400" height="800">
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th5.jpg" alt="alt text" width="400" height="800">
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th6.jpg" alt="alt text" width="400" height="800">
  
 
 ### Likes
@@ -147,8 +147,8 @@ Make sure you have the following installed on your local machine:
 - **Unfollow User**: Unfollow a user.
  ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder7.png)
  ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder8.png)
- <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th3.png" alt="alt text" width="400" height="800">
-  <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th4.png" alt="alt text" width="400" height="800">
+ <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th3.jpg" alt="alt text" width="400" height="800">
+  <img src="https://github.com/Vineet829/thunder-link/blob/main/images/th4.jpg" alt="alt text" width="400" height="800">
 
 ### Image Uploads
 
