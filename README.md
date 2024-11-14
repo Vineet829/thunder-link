@@ -107,7 +107,7 @@ Make sure you have the following installed on your local machine:
 
    ![alt text](https://github.com/Vineet829/thunder-link/blob/main/images/thunder1.png)
 
-<img src="https://github.com/Vineet829/thunder-link/blob/main/images/th1.jpg" alt="alt text" width="1000" height="600">
+<img src="https://github.com/Vineet829/thunder-link/blob/main/images/th1.jpg" alt="alt text" width="400" height="800">
 
 
 
