@@ -3,7 +3,7 @@ import { GraphQLClient } from "graphql-request";
 const isClient = typeof window !== "undefined";
 
 export const graphqlClient = new GraphQLClient(
-  "https://thunder.vineetpersonal.site/graphql",  {
+  "https://thunder.vineetpersonal.site",  {
     headers: () => ({
       Authorization: isClient
         ? `Bearer ${window.localStorage.getItem("__thunder_token")}`
