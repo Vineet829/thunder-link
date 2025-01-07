@@ -4,11 +4,11 @@ import cors from "cors";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { prismaClient } from "../clients/db";
+
 import { User } from "./user";
 import { Post } from "./post";
 import { GraphqlContext } from "../intefaces";
 import JWTService from "../services/jwt";
-
 
 export async function initServer() {
   const app = express();
@@ -22,18 +22,18 @@ export async function initServer() {
 
   const graphqlServer = new ApolloServer<GraphqlContext>({
     typeDefs: `
-      ${User.types}
-      ${Post.types}
+       ${User.types}
+       ${Post.types}
 
-      type Query {
-        ${User.queries}
-        ${Post.queries}
-      }
+        type Query {
+            ${User.queries}
+            ${Post.queries}
+        }
 
-      type Mutation {
-        ${Post.muatations}
-        ${User.mutations}
-      }
+        type Mutation {
+          ${Post.muatations}
+          ${User.mutations}
+        }
     `,
     resolvers: {
       Query: {
@@ -66,14 +66,10 @@ export async function initServer() {
     })
   );
 
-  const PORT = 3000;
-
-  app.listen(PORT, () => {
-    console.log(`HTTP Server is running on http://localhost:${PORT}`);
-  });
-
- 
   return app;
+}
+
+
 }
 
 
