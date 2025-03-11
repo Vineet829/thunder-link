@@ -96,7 +96,7 @@ export default function Home(props: HomeProps) {
               <textarea
   value={content}
   onChange={(e) => setContent(e.target.value)}
-  className="w-full bg-transparent text-sm border-b border-gray-300 dark:border-gray-600 focus:outline-none focus:border-blue-500 transition-colors text-gray-900 dark:text-gray-100" // 텍스트 색상 추가
+  className="w-full bg-transparent text-sm border-b border-gray-300 dark:border-gray-600 focus:outline-none focus:border-blue-500 transition-colors text-gray-900 dark:text-gray-100" 
   placeholder="What's happening?"
   rows={3}
 />
