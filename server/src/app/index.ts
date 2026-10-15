@@ -68,8 +68,3 @@ export async function initServer() {
 
   return app;
 }
-
-
-}
-
-
